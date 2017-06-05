@@ -26,6 +26,7 @@ Calender.prototype.generateHTML = function() {
     }
   }
 
+  // header
   let monthName = month_names[this.month];
   let html = '<table class="calendar-table">';
   html = '<tr><th colspan="7">';
@@ -38,4 +39,36 @@ Calender.prototype.generateHTML = function() {
     html += '</td>'
   }
   html += '</tr><tr>';
+
+
+// fill in days
+  let day = 1;
+  for (var i = 0; i < 9; i++) {
+    for (var j = 0; j <= 6; j++) {
+      html += '<td class="calendar-day">';
+      if (day <= monthLength && (i > 0 || startingDay)) {
+        html += day;
+        day++;
+      }
+      html += '</td>';
+    }
+
+    if (day > monthLength) {
+      break;
+    } else {
+      html += '</tr></tr>'
+    }
+  }
+  html += '</tr></table>';
+
+  this.html = html;
 }
+
+Calendar.prototype.getHTML = function() {
+  return this.html;
+}
+
+
+var cal = new Calender(8, 2009);
+cal.generateHTML();
+document.write(cal.generateHTML());
